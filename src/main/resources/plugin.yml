@@ -1,0 +1,10 @@
+name: ByteFoxTeamPlugin
+main: de.juliansoftware.main.Main
+api-version: 1.19
+authors: [ Julian ]
+description: TeamPlugin for ByteFox
+version: '${project.version}'
+commands:
+    team:
+
+
