@@ -55,6 +55,11 @@
 
     <repositories>
         <repository>
+            <id>bytefox-repo</id>
+            <name>Reposilite Repository</name>
+            <url>http://bytefox.net:8080/cloudsystem</url>
+        </repository>
+        <repository>
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
@@ -77,6 +82,12 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.19.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.brokenstudio</groupId>
+            <artifactId>VelocityPlugin</artifactId>
+            <version>1.0.2-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
