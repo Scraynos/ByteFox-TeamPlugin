@@ -30,6 +30,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 //TODO: player should allow a color for every rank (setDisplayName should get the color)
 //TODO: Displayname upperCase
+//TODO: Move /team remove rname pname --> arg rname not required
 
 public class Commands implements CommandExecutor {
 
@@ -58,14 +59,15 @@ public class Commands implements CommandExecutor {
 
             if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("view")) {
-                    if (teamList != null) {
+                    if (teamList.size() >= 1) {
                         Player player = (Player) sender;
                         spin(player, teamList);
-                        return true;
+                        p.sendMessage(String.valueOf(teamList.size()));
                     } else {
                         p.sendMessage("");
-                        p.sendMessage(Constants.COLOR_GREEN_BOLD+"Aktuell sind keine Teammitglieder abgespeichert.");
+                        p.sendMessage(Constants.COLOR_RED_BOLD+"Aktuell sind keine Teammitglieder abgespeichert.");
                     }
+                    return true;
                 }
             }
 
