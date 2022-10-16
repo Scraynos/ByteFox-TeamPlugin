@@ -86,7 +86,10 @@ public class Commands implements CommandExecutor {
 
                 if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("ranks")) {
-                        //TODO: give out array list
+                        p.sendMessage("");
+                        for (int i = 0; i < rankList.size(); i++)
+                            p.sendMessage(Constants.RED_BOLD_EXCLE+Constants.COLOR_AQUA_BOLD+rankList.get(i));
+                        return true;
                     }
                     if (args[0].equalsIgnoreCase("rank")) {
                         p.sendMessage("");
