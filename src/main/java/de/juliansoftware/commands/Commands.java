@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-//TODO: fix if "teamList" == null, don't open GUI
 //TODO: player should allow a color for every rank (setDisplayName should get the color)
 //TODO: Displayname upperCase
 
@@ -59,9 +58,14 @@ public class Commands implements CommandExecutor {
 
             if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("view")) {
-                    Player player = (Player) sender;
-                    spin(player, teamList);
-                    return true;
+                    if (teamList != null) {
+                        Player player = (Player) sender;
+                        spin(player, teamList);
+                        return true;
+                    } else {
+                        p.sendMessage("");
+                        p.sendMessage(Constants.COLOR_GREEN_BOLD+"Aktuell sind keine Teammitglieder abgespeichert.");
+                    }
                 }
             }
 
@@ -131,11 +135,11 @@ public class Commands implements CommandExecutor {
                                 p.sendMessage(Constants.COLOR_GREEN_BOLD + "Du hast erfolgreich " + args[2] + " zum " + args[1] + " hinzugefügt.");
                             } else {
                                 p.sendMessage("");
-                                p.sendMessage(Constants.COLOR_AQUA_BOLD + Constants.PLAYER_ALREADY_FOUND);
+                                p.sendMessage(Constants.COLOR_RED_BOLD + Constants.PLAYER_ALREADY_FOUND);
                             }
                         } else {
                             p.sendMessage("");
-                            p.sendMessage(Constants.COLOR_AQUA_BOLD + Constants.RANK_NOT_FOUND);
+                            p.sendMessage(Constants.COLOR_RED_BOLD + Constants.RANK_NOT_FOUND);
                         }
                     }
 
@@ -149,7 +153,7 @@ public class Commands implements CommandExecutor {
                             ConfigHandler.handler().saveList(teamList, Constants.STRING_TEAM);
                         } else {
                             p.sendMessage("");
-                            p.sendMessage(Constants.COLOR_AQUA_BOLD + Constants.PLAYER_NOT_FOUND);
+                            p.sendMessage(Constants.COLOR_RED_BOLD + Constants.PLAYER_NOT_FOUND);
                         }
                     }
 
@@ -161,15 +165,15 @@ public class Commands implements CommandExecutor {
                                 p.sendMessage(Constants.COLOR_GREEN_BOLD + "Du hast erfolgreich " + args[2] + " hinzugefügt.");
                             } else {
                                 p.sendMessage("");
-                                p.sendMessage(Constants.COLOR_AQUA_BOLD + Constants.RANK_ALREADY_FOUND);
+                                p.sendMessage(Constants.COLOR_RED_BOLD + Constants.RANK_ALREADY_FOUND);
                             }
                         } else if (args[1].equalsIgnoreCase("remove")) {
                             if (entryCountT == 1) {
                                 rankList.remove(args[2].toLowerCase());
-                                p.sendMessage(Constants.COLOR_AQUA_BOLD + "Du hast erfolgreich " + args[2] + " entfernt.");
+                                p.sendMessage(Constants.COLOR_GREEN_BOLD + "Du hast erfolgreich " + args[2] + " entfernt.");
                             } else {
                                 p.sendMessage("");
-                                p.sendMessage(Constants.COLOR_AQUA_BOLD + Constants.RANK_NOT_FOUND);
+                                p.sendMessage(Constants.COLOR_RED_BOLD + Constants.RANK_NOT_FOUND);
                             }
                         } else {
                             p.sendMessage("Falsche Benutzung des Befehls.");

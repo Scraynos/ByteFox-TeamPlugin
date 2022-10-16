@@ -16,6 +16,7 @@ public class Constants {
     public static final String PLAYER_ALREADY_FOUND = "Diese Person ist bereits hinterlegt.";
     public static final String COLOR_GREEN_BOLD = "§a§l";
     public static final String COLOR_AQUA_BOLD = ChatColor.AQUA+"§l";
+    public static final String COLOR_RED_BOLD = ChatColor.RED+"§l";
     public static final String RED_BOLD_EXCLE = ChatColor.RED+"§l>> ";
     public static final HashMap<Player, BukkitTask> tasks = new HashMap<>();
 
