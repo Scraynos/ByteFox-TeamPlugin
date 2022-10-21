@@ -6,7 +6,6 @@ description: TeamPlugin for ByteFox
 version: '${project.version}'
 commands:
     team:
-    test:
 depend:
     - BrokenCloud
 

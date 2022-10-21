@@ -6,7 +6,7 @@
 
     <groupId>de.juliansoftware</groupId>
     <artifactId>ByteFoxTeamPlugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1-FINAL</version>
     <packaging>jar</packaging>
     <name>ByteFoxTeamPlugin</name>
 
@@ -62,18 +62,6 @@
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
-        <repository>
-            <id>sonatype</id>
-            <url>https://oss.sonatype.org/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>minecraft-repo</id>
-            <url>https://libraries.minecraft.net/</url>
-        </repository>
-        <repository>
-            <id>skullcreator-repo</id>
-            <url>https://github.com/deanveloper/SkullCreator/raw/mvn-repo/</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -86,20 +74,8 @@
         <dependency>
             <groupId>dev.brokenstudio</groupId>
             <artifactId>SpigotPlugin</artifactId>
-            <version>1.0.2-FINAL</version>
+            <version>1.0.5-FINAL</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.mojang</groupId>
-            <artifactId>authlib</artifactId>
-            <version>1.5.21</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>dev.dbassett</groupId>
-            <artifactId>skullcreator</artifactId>
-            <version>3.0.1</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

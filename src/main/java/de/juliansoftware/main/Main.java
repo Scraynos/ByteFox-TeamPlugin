@@ -1,17 +1,11 @@
 package de.juliansoftware.main;
 
 import de.juliansoftware.commands.Commands;
-import de.juliansoftware.constants.Constants;
 import de.juliansoftware.group.GroupHandler;
-import de.juliansoftware.listener.InventoryListener;
-import de.juliansoftware.user.UserData;
 import de.juliansoftware.user.UserDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class Main extends JavaPlugin {
 
@@ -24,7 +18,6 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        getDataFolder().mkdirs();
 
         onInit(Bukkit.getPluginManager());
 
@@ -34,10 +27,7 @@ public class Main extends JavaPlugin {
     }
 
     private void onInit(PluginManager pluginManager) {
-        pluginManager.registerEvents(new InventoryListener(), this);
         getCommand("team").setExecutor(new Commands(this));
-
-
     }
 
     @Override

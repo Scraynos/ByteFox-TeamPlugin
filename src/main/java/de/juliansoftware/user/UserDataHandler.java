@@ -1,6 +1,5 @@
 package de.juliansoftware.user;
 
-import de.juliansoftware.constants.Constants;
 import de.juliansoftware.group.Group;
 import de.juliansoftware.main.Main;
 import dev.brokenstudio.cloud.cloudplugin.CloudPlugin;

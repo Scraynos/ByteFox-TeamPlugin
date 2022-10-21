@@ -3,10 +3,8 @@ package de.juliansoftware.commands;
 import de.juliansoftware.constants.Constants;
 
 
-import de.juliansoftware.group.GroupHandler;
 import de.juliansoftware.main.Main;
 import de.juliansoftware.user.UserData;
-import de.juliansoftware.user.UserDataHandler;
 import dev.brokenstudio.cloud.cloudplugin.CloudPlugin;
 import dev.brokenstudio.cloud.item.BrokenItem;
 import dev.brokenstudio.cloud.item.Skull;
@@ -22,20 +20,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
-
-//TODO: player should allow a color for every rank (setDisplayName should get the color)
-//TODO: Displayname upperCase
-//TODO: Move /team remove rname pname --> arg rname not required
-//TODO: DB Redis/MySQL
 
 public class Commands implements CommandExecutor {
 

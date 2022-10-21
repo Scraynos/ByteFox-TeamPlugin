@@ -5,9 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Constants {
 
@@ -19,8 +17,6 @@ public class Constants {
     public static final String COLOR_GREEN = ChatColor.GREEN+"";
     public static final String COLOR_RED = ChatColor.RED+"";
     public static final HashMap<Player, BukkitTask> tasks = new HashMap<>();
-    public static List<Integer> UserCounter = new ArrayList<>();
-    public static List<Integer> GroupCounter = new ArrayList<>();
     public static final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 
     }
