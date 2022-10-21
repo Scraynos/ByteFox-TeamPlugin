@@ -8,7 +8,6 @@
     <artifactId>ByteFoxTeamPlugin</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <name>ByteFoxTeamPlugin</name>
 
     <description>TeamPlugin for ByteFox</description>
@@ -71,10 +70,10 @@
             <id>minecraft-repo</id>
             <url>https://libraries.minecraft.net/</url>
         </repository>
-            <repository>
-                <id>skullcreator-repo</id>
-                <url>https://github.com/deanveloper/SkullCreator/raw/mvn-repo/</url>
-            </repository>
+        <repository>
+            <id>skullcreator-repo</id>
+            <url>https://github.com/deanveloper/SkullCreator/raw/mvn-repo/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -86,8 +85,8 @@
         </dependency>
         <dependency>
             <groupId>dev.brokenstudio</groupId>
-            <artifactId>VelocityPlugin</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <artifactId>SpigotPlugin</artifactId>
+            <version>1.0.2-FINAL</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

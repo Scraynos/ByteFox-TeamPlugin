@@ -4,26 +4,24 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Constants {
 
-    public static final String STRING_TEAM = "Team";
-    public static final String STRING_RANK = "Rank";
     public static final String PLAYER_NOT_FOUND = "Diese Person wurde leider nicht gefunden.";
     public static final String RANK_ALREADY_FOUND = "Dieser Rang ist bereits hinterlegt.";
     public static final String RANK_NOT_FOUND = "Dieser Rang wurde leider nicht gefunden.";
     public static final String PLAYER_ALREADY_FOUND = "Diese Person ist bereits hinterlegt.";
-    public static final String COLOR_GREEN_BOLD = "§a§l";
-    public static final String COLOR_AQUA_BOLD = ChatColor.AQUA+"§l";
-    public static final String COLOR_RED_BOLD = ChatColor.RED+"§l";
-    public static final String RED_BOLD_EXCLE = ChatColor.RED+"§l>> ";
+    public static final String ByteFox = "§f§lByteFox §8§l| §r§7";
+    public static final String COLOR_GREEN = ChatColor.GREEN+"";
+    public static final String COLOR_RED = ChatColor.RED+"";
     public static final HashMap<Player, BukkitTask> tasks = new HashMap<>();
-
-
-
-
-
+    public static List<Integer> UserCounter = new ArrayList<>();
+    public static List<Integer> GroupCounter = new ArrayList<>();
+    public static final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 
     }
 
