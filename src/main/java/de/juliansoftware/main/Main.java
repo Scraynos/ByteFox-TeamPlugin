@@ -2,6 +2,7 @@ package de.juliansoftware.main;
 
 import de.juliansoftware.commands.Commands;
 import de.juliansoftware.group.GroupHandler;
+import de.juliansoftware.listener.Listener;
 import de.juliansoftware.user.UserDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -28,6 +29,7 @@ public class Main extends JavaPlugin {
 
     private void onInit(PluginManager pluginManager) {
         getCommand("team").setExecutor(new Commands(this));
+        Bukkit.getPluginManager().registerEvents(new Listener(), this);
     }
 
     @Override

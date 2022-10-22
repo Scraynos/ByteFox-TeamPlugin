@@ -50,10 +50,12 @@ public class GroupHandler {
 
     public void addGroup(String name){
         groups.put(name, new Group(name, "§f"));
+        saveGroups();
     }
 
     public void removeGroup(String name){
         groups.remove(name);
+        saveGroups();
     }
     public Set<String> getGroups() {
         return groups.keySet();
@@ -63,7 +65,7 @@ public class GroupHandler {
         SQLPipe pipe = new SQLPipe();
         pipe.addQuery("DELETE FROM `tv_groups`;");
         groups.forEach((name, data) -> {
-            pipe.addQuery("INSERT INTO `tv_groups` (`group_name`,`group_data`) VALUES ('"+name+"','"+Serializer.serialize(data)+"')");
+            pipe.addQuery("INSERT INTO `tv_groups` (`group_name`,`group_data`) VALUES ('"+name+"','"+Serializer.serialize(data)+"');");
         });
         CloudPlugin.api().getDeveloperDatabase().getMariaDBHandler().executePipe(pipe);
     }

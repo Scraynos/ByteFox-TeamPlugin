@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +31,11 @@ public class Commands implements CommandExecutor {
 
     List<Inventory> invs = new ArrayList<Inventory>();
     public static ItemStack[] contents;
-    private int itemIndex = 0;
+    private int itemIndex;
 
     private Main plugin;
-
+    public static BukkitTask task2 = null;
+    public static BukkitTask task1 = null;
 
     public Commands(Main plugin) {
         this.plugin = plugin;
@@ -52,6 +54,7 @@ public class Commands implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("view")) {
                     if (plugin.getUserService().getData().size() > 0) {
                         Player player = (Player) sender;
+                        itemIndex = 0;
                         spin(player, new ArrayList<>(Main.getInstance().getUserService().getData().values()));
                     } else {
                         p.sendMessage("");
@@ -65,12 +68,12 @@ public class Commands implements CommandExecutor {
 
                 if (args.length == 0) {
 
-                    p.sendMessage(Constants.ByteFox + "§l============ Team ============");
-                    p.sendMessage(Constants.COLOR_GREEN + "  §l/team view");
-                    p.sendMessage(Constants.COLOR_GREEN + "  §l/team <add | remove> <user_name>");
-                    p.sendMessage(Constants.COLOR_GREEN + "  §l/team rank <add | remove> <rank_name>");
-                    p.sendMessage(Constants.COLOR_GREEN + "  §l/team ranks");
-                    p.sendMessage(Constants.ByteFox + "§l============ Team ============");
+                    p.sendMessage("§f§l============ Team ============");
+                    p.sendMessage("§7  §l/team view");
+                    p.sendMessage("§7  §l/team <add | remove> <user_name>");
+                    p.sendMessage("§7  §l/team rank <add | remove> <rank_name>");
+                    p.sendMessage("§7  §l/team ranks");
+                    p.sendMessage("§f§l============ Team ============");
                 }
 
 
@@ -85,72 +88,63 @@ public class Commands implements CommandExecutor {
                     }
                     if (args[0].equalsIgnoreCase("rank")) {
                         p.sendMessage("");
-                        p.sendMessage(Constants.ByteFox+Constants.COLOR_RED+"Meintest du /team rank <add / remove> <rank_name>?");
+                        p.sendMessage(Constants.ByteFox+"§7Meintest du /team rank <add / remove> <rank_name>?");
                     } else if (args[0].equalsIgnoreCase("add")) {
                         p.sendMessage("");
-                        p.sendMessage(Constants.ByteFox+Constants.COLOR_RED+"Meintest du /team add <rank_name> <player_name>?");
+                        p.sendMessage(Constants.ByteFox+"§7Meintest du /team add <rank_name> <player_name>?");
                     } else if (args[0].equalsIgnoreCase("remove")) {
                         p.sendMessage("");
-                        p.sendMessage(Constants.ByteFox+Constants.COLOR_RED+"Meintest du /team remove <player_name>?");
+                        p.sendMessage(Constants.ByteFox+"§7Meintest du /team remove <player_name>?");
                     } else {
                         p.sendMessage("");
-                        p.sendMessage(Constants.ByteFox+Constants.COLOR_RED+"Meintest du /team <add | remove | rank>?");
+                        p.sendMessage(Constants.ByteFox+"§7Meintest du /team <add | remove | rank>?");
                     }
                 }
 
                 if (args.length == 2) {
                     if (args[0].equalsIgnoreCase("add")) {
                         p.sendMessage("");
-                        p.sendMessage(Constants.ByteFox+Constants.COLOR_RED+"Meintest du /team add " + args[1] + " <player_name>?");
+                        p.sendMessage(Constants.ByteFox+"§7Meintest du /team add " + args[1] + " <player_name>?");
 
-                    } else if (args[0].equalsIgnoreCase("remove")) {
-                        p.sendMessage("");
-                        p.sendMessage(Constants.ByteFox+Constants.COLOR_RED+"Meintest du /team remove <player_name>?");
                     } else if (args[0].equalsIgnoreCase("rank")) {
                         if (args[1].equalsIgnoreCase("add")) {
                             p.sendMessage("");
-                            p.sendMessage(Constants.ByteFox+Constants.COLOR_RED+"Meintest du /team rank add <player_name>?");
+                            p.sendMessage(Constants.ByteFox+"§7Meintest du /team rank add <player_name>?");
                         } else if (args[1].equalsIgnoreCase("remove")) {
                             p.sendMessage("");
-                            p.sendMessage(Constants.ByteFox+Constants.COLOR_RED+"Meintest du /team rank remove <player_name>?");
+                            p.sendMessage(Constants.ByteFox+"§7Meintest du /team rank remove <player_name>?");
+                        }else {
+                            p.sendMessage("");
+                            p.sendMessage(Constants.ByteFox+"§7Meintest du /team rank <add | remove> <player_name>?");
+                        }
+                    }else if (args[0].equalsIgnoreCase("remove")) {
+                        UUID target = UUIDFetcher.getUUID(args[1]);
+                        if (plugin.getUserService().getData(target) != null) {
+                            p.sendMessage("");
+                            p.sendMessage(Constants.ByteFox+"§7Du hast erfolgreich §f" + args[1] + "§7 entfernt.");
+                            plugin.getUserService().removeUser(target);
                         } else {
                             p.sendMessage("");
-                            p.sendMessage(Constants.ByteFox+Constants.COLOR_RED+"Meintest du /team rank <add | remove> <player_name>?");
+                            p.sendMessage(Constants.ByteFox+Constants.COLOR_RED + Constants.PLAYER_NOT_FOUND);
                         }
                     }
                 }
 
 
                 if (args.length == 3) {
-
                     if (args[0].equalsIgnoreCase("add")) {
                         if (plugin.getGroupService().getGroup(args[1]) != null) {
                             UUID target = UUIDFetcher.getUUID(args[2]);
-                            if (target == null) {
-                                p.sendMessage(Constants.ByteFox+"Dieser Spieler ist aktuell nicht online.");
-                                return true;
-                            }
                                 if (plugin.getUserService().getData(target) == null) {
                                     p.sendMessage("");
-                                    p.sendMessage(Constants.ByteFox+Constants.COLOR_GREEN+"Du hast erfolgreich " + args[2] + " zu " + args[1] + " hinzugefügt.");
+                                    p.sendMessage(Constants.ByteFox+"§7Du hast erfolgreich§f " + args[2] + " §7zu §f" + args[1] + " §7hinzugefügt.");
                                     plugin.getUserService().addUser(target, args[1], args[2]);
                                 }else {
                                     p.sendMessage(Constants.ByteFox+Constants.COLOR_RED + Constants.PLAYER_ALREADY_FOUND);
                                 }
                         } else {
                             p.sendMessage("");
-                            p.sendMessage(Constants.ByteFox+Constants.COLOR_RED + Constants.RANK_NOT_FOUND);
-                        }
-                    }
-                    if (args[0].equalsIgnoreCase("remove")) {
-                        UUID target = UUIDFetcher.getUUID(args[2]);
-                        if (plugin.getUserService().getData(target) != null) {
-                            p.sendMessage("");
-                            p.sendMessage(Constants.ByteFox+Constants.COLOR_GREEN + "Du hast erfolgreich " + args[2] + " entfernt.");
-                            plugin.getUserService().removeUser(target);
-                        } else {
-                            p.sendMessage("");
-                            p.sendMessage(Constants.ByteFox+Constants.COLOR_RED + Constants.PLAYER_NOT_FOUND);
+                            p.sendMessage(Constants.ByteFox+Constants.RANK_NOT_FOUND);
                         }
                     }
 
@@ -159,7 +153,7 @@ public class Commands implements CommandExecutor {
                         if (args[1].equalsIgnoreCase("add")) {
                             if (plugin.getGroupService().getGroup(args[2]) == null) {
                                 p.sendMessage("");
-                                p.sendMessage(Constants.ByteFox+Constants.COLOR_GREEN + "Du hast erfolgreich " + args[2] + " hinzugefügt.");
+                                p.sendMessage(Constants.ByteFox+ "§7Du hast erfolgreich §f" + args[2] + "§7 hinzugefügt.");
                                 plugin.getGroupService().addGroup(args[2]);
                             } else {
                                 p.sendMessage("");
@@ -168,7 +162,7 @@ public class Commands implements CommandExecutor {
                         } else if (args[1].equalsIgnoreCase("remove")) {
                             if (plugin.getGroupService().getGroup(args[2]) != null) {
                                 p.sendMessage("");
-                                p.sendMessage(Constants.ByteFox+Constants.COLOR_GREEN + "Du hast erfolgreich " + args[2] + " entfernt.");
+                                p.sendMessage(Constants.ByteFox+"§7Du hast erfolgreich §f" + args[2] + " §7entfernt.");
                                 plugin.getGroupService().removeGroup(args[2]);
                             } else {
                                 p.sendMessage("");
@@ -176,12 +170,8 @@ public class Commands implements CommandExecutor {
                             }
                         } else {
 
-                            p.sendMessage("Falsche Benutzung des Befehls.");
+                            p.sendMessage("§7Falsche Benutzung des §fBefehls§7.");
                         }
-                        CompletableFuture.runAsync(() -> {
-                            plugin.getGroupService().saveGroups();
-                            plugin.getUserService().saveUser();
-                        });
                     }
                 }
             }
@@ -208,7 +198,6 @@ public class Commands implements CommandExecutor {
             contents = items;
 
         int startingIndex = ThreadLocalRandom.current().nextInt(contents.length);
-
         for(int index = 0; index < startingIndex; index++) {
             for(int itemstacks = 10; itemstacks < 17; itemstacks++) {
                 inv.setItem(itemstacks,contents[(itemstacks + itemIndex) % contents.length]);
@@ -225,23 +214,21 @@ public class Commands implements CommandExecutor {
         CompletableFuture.runAsync(() -> {
             Inventory inv = Bukkit.createInventory(p, 3*9, Constants.ByteFox+"Team");
             inv.clear();
+            Constants.tasks.clear();
             shuffle(inv, s);
-            new BukkitRunnable() {
+            task1 = new BukkitRunnable() {
                 @Override
                 public void run() {
                     p.openInventory(inv);
 
-
                     Constants.tasks.put(p,
-                            new BukkitRunnable() {
+                            task2 = new BukkitRunnable() {
 
                                 public void run() {
-
                                     for (int itemstacks = 10; itemstacks < 17; itemstacks++)
                                         inv.setItem(itemstacks,contents[(itemstacks + itemIndex) % contents.length]);
 
                                     itemIndex++;
-
                                 }
                             }.runTaskTimer(Main.getPlugin(Main.class), 0, 30));
                 }

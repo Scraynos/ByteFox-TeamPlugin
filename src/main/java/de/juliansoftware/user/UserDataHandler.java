@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 public class UserDataHandler {
 
@@ -28,7 +29,7 @@ public class UserDataHandler {
             connection = CloudPlugin.api().getDeveloperDatabase().getMariaDBHandler().getSQLConnection().getDriverConnection();
             rs = connection.createStatement().executeQuery("SELECT * FROM `tv_users`;");
             while(rs.next()){
-                data.put(UUID.fromString(rs.getString("group_id")), Serializer.deserialize(rs.getString("user_data"), UserData.class));
+                data.put(UUID.fromString(rs.getString("user_id")), Serializer.deserialize(rs.getString("user_data"), UserData.class));
             }
         }catch (SQLException e){
             e.printStackTrace();
@@ -52,6 +53,7 @@ public class UserDataHandler {
 
     public void removeUser(UUID uuid) {
         data.remove(uuid);
+        saveUser();
     }
     public boolean addUser(UUID uuid, String groupName, String name){
         Group group = Main.getInstance().getGroupService().getGroup(groupName);
@@ -59,16 +61,18 @@ public class UserDataHandler {
             return false;
         }
         data.put(uuid, new UserData(uuid, group, new Date(), name));
+            saveUser();
+
         return true;
     }
 
     public void saveUser(){
         SQLPipe pipe = new SQLPipe();
         pipe.addQuery("DELETE FROM `tv_users`;");
+
         data.forEach((id, data) -> {
-            pipe.addQuery("INSERT INTO `tv_users` (`user_id`,`user_data`) VALUES ('"+id.toString()+"','"+Serializer.serialize(data)+"')");
+            pipe.addQuery("INSERT INTO `tv_users` (`user_id`,`user_data`) VALUES ('"+id.toString()+"','"+Serializer.serialize(data)+"');");
         });
         CloudPlugin.api().getDeveloperDatabase().getMariaDBHandler().executePipe(pipe);
     }
-
 }
